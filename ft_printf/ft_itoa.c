@@ -6,11 +6,31 @@
 /*   By: vjacob <vjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 09:56:34 by vjacob            #+#    #+#             */
-/*   Updated: 2021/01/29 14:48:46 by vjacob           ###   ########.fr       */
+/*   Updated: 2021/01/30 19:35:30 by vjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
+
+char	*ft_strdup(char *s1)
+{
+	char	*s2;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(s1) + 1;
+	s2 = (char *)malloc(sizeof(char) * len);
+	if (s2 == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
 
 int		n_size(int n)
 {
@@ -54,12 +74,11 @@ char	*ft_itoa(int n)
 	int		nlen;
 	int		neg;
 
-	if (n == -2147483648)
+	if (n == INT_MIN)
 		return (ft_strdup("-2147483648"));
 	neg = 0;
 	nlen = n_size(n);
-	str = (char *)malloc(sizeof(char) * (nlen + 1));
-	if (str == NULL)
+	if (!(str = (char *)malloc(sizeof(char) * (nlen + 1))))
 		return (NULL);
 	if (n < 0)
 	{
